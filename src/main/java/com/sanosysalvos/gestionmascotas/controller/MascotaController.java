@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestBody;
+import com.sanosysalvos.gestionmascotas.model.ImagenMascotaModel;
 import com.sanosysalvos.gestionmascotas.model.MascotaModel;
 import com.sanosysalvos.gestionmascotas.service.MascotaService;
+import com.sanosysalvos.gestionmascotas.service.ImagenMascotaService;
 
 @RestController
 @RequestMapping("/api/mascotas")
@@ -18,6 +20,9 @@ public class MascotaController {
 
     @Autowired
     private MascotaService mascotaService;
+
+    @Autowired
+    private ImagenMascotaService imagenMascotaService;
 
     @GetMapping
     public List<MascotaModel> obtenerMascota(){
@@ -32,6 +37,18 @@ public class MascotaController {
     @PostMapping
     public MascotaModel crearMascota(@RequestBody MascotaModel mascota){
         return mascotaService.guardarMascota(mascota);
+    }
+
+    @PostMapping("/{id}/imagenes")
+        public ImagenMascotaModel agregarImagen(
+        @PathVariable Long id,
+        @RequestBody ImagenMascotaModel imagen) {
+
+    MascotaModel mascota = mascotaService.obtenerMascotaPorId(id);
+
+        imagen.setMascota(mascota);
+
+        return imagenMascotaService.guardarImagen(imagen);
     }
 
     @PutMapping("/{id}")
