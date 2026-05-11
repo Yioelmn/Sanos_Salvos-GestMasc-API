@@ -1,8 +1,7 @@
 package com.sanosysalvos.gestionmascotas.repository;
 
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
+import com.sanosysalvos.gestionmascotas.model.ImagenMascotaModel;
 
-@Repository
-public interface ImagenMascotaRepository {
-    
+public interface ImagenMascotaRepository extends JpaRepository<ImagenMascotaModel, Long> {
 }
