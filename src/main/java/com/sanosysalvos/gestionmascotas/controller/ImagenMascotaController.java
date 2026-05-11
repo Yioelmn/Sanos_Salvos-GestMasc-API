@@ -23,6 +23,11 @@ public class ImagenMascotaController {
         return imagenMascotaService.obtenerImagenes();
     }
 
+    @GetMapping("/{id}")
+    public ImagenMascotaModel obtenerImagenMascotaPorId(@PathVariable Long id){
+        return imagenMascotaService.obtenerImagenMascotaPorId(id);
+    }
+
     @DeleteMapping("/{id}")
     public void eliminarImagen(@PathVariable Long id){
         imagenMascotaService.eliminarImagen(id);

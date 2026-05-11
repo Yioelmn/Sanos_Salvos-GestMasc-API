@@ -2,6 +2,7 @@ package com.sanosysalvos.gestionmascotas.model;
 
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -43,6 +44,12 @@ public class MascotaModel {
     @NotNull(message = "La edad de la mascota es obligatoria")
     private int edad;
 
+    private Double latitud;
+
+    private Double longitud;
+
+    private String comuna;
+
     @ManyToMany
     @JoinTable(
     name = "mascota_etiqueta",
@@ -52,7 +59,12 @@ public class MascotaModel {
     private List<EtiquetasModel> etiquetas;
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "mascota")
-    private List<ImagenMascotaModel> imagenes;
+    @OneToMany(
+        mappedBy ="mascota", 
+        cascade = CascadeType.ALL,
+        orphanRemoval = true
+    )
 
+    private List<ImagenMascotaModel> imagenes;
+ 
 }

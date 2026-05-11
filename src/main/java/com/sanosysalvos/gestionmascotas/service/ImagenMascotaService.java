@@ -18,6 +18,11 @@ public class ImagenMascotaService {
         return imagenMascotaRepository.findAll();
     }
 
+    public ImagenMascotaModel obtenerImagenMascotaPorId(Long id){
+        return imagenMascotaRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Imagen no encontrada"));
+    }
+
     public ImagenMascotaModel guardarImagen(ImagenMascotaModel imagen){
         return imagenMascotaRepository.save(imagen);
     }

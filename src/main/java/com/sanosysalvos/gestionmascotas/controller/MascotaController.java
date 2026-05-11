@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import com.sanosysalvos.gestionmascotas.model.ImagenMascotaModel;
 import com.sanosysalvos.gestionmascotas.model.MascotaModel;
 import com.sanosysalvos.gestionmascotas.service.MascotaService;
+
+import jakarta.validation.Valid;
+
 import com.sanosysalvos.gestionmascotas.service.ImagenMascotaService;
 
 @RestController
@@ -35,7 +38,7 @@ public class MascotaController {
     }
 
     @PostMapping
-    public MascotaModel crearMascota(@RequestBody MascotaModel mascota){
+    public MascotaModel crearMascota(@Valid @RequestBody MascotaModel mascota){
         return mascotaService.guardarMascota(mascota);
     }
 
@@ -52,7 +55,7 @@ public class MascotaController {
     }
 
     @PutMapping("/{id}")
-    public MascotaModel actualizarMascota(@PathVariable Long id, @RequestBody MascotaModel mascota){
+    public MascotaModel actualizarMascota(@PathVariable Long id,@Valid @RequestBody MascotaModel mascota){
         return mascotaService.actualizarMascota(id, mascota);
     }
 

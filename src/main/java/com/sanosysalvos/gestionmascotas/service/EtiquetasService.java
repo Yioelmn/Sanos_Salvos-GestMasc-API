@@ -28,6 +28,16 @@ public class EtiquetasService {
         return etiquetasRepository.save(etiqueta);
     }
 
+    public EtiquetasModel actualizarEtiquetas(Long id, EtiquetasModel etiquetaActualizada){
+
+        EtiquetasModel etiquetaExistente = etiquetasRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Etiqueta no encontrada"));
+                etiquetaExistente.setNombre_etiqueta(
+                    etiquetaActualizada.getNombre_etiqueta()
+                );
+        return etiquetasRepository.save(etiquetaExistente);
+    }
+
     public void eliminarEtiqueta(Long id) {
         etiquetasRepository.deleteById(id);
     }

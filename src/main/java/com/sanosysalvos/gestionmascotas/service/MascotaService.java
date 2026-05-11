@@ -27,21 +27,21 @@ public class MascotaService {
 
     public MascotaModel actualizarMascota(Long id, MascotaModel mascotaActualizada){
 
-        MascotaModel mascota = mascotaRepository.findById(id).orElse(null);
+        MascotaModel mascotaExistente = mascotaRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Mascota no encontrada"));
 
-        if(mascota != null){
+        mascotaExistente.setNombre(mascotaActualizada.getNombre());
+        mascotaExistente.setEspecie(mascotaActualizada.getEspecie());
+        mascotaExistente.setRaza(mascotaActualizada.getRaza());
+        mascotaExistente.setSexo(mascotaActualizada.getSexo());
+        mascotaExistente.setEdad(mascotaActualizada.getEdad());
+        mascotaExistente.setLatitud(mascotaActualizada.getLatitud());
+        mascotaExistente.setLongitud(mascotaActualizada.getLongitud());
+        mascotaExistente.setComuna(mascotaActualizada.getComuna());
 
-            mascota.setNombre(mascotaActualizada.getNombre());
-            mascota.setEspecie(mascotaActualizada.getEspecie());
-            mascota.setRaza(mascotaActualizada.getRaza());
-            mascota.setSexo(mascotaActualizada.getSexo());
-            mascota.setEdad(mascotaActualizada.getEdad());
-            mascota.setEtiquetas(mascotaActualizada.getEtiquetas());
+        mascotaExistente.setEtiquetas(mascotaActualizada.getEtiquetas());
 
-            return mascotaRepository.save(mascota);
-        }
-
-        return null;
+        return mascotaRepository.save(mascotaExistente);
     }
 
     public void eliminarMascota(Long id){
